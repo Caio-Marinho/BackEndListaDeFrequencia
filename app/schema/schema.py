@@ -1,3 +1,4 @@
+from datetime import date
 from . import schema
 from app.models import Discentes, db
 
@@ -7,14 +8,8 @@ class DiscenteSchema(schema.SQLAlchemyAutoSchema):
         load_instance = True
         sqla_session = db.session
         
-    id = schema.auto_field(dump_only=True)
-    email = schema.auto_field(required=True)
-    horas = schema.auto_field(required=False)
-    dias = schema.auto_field(required=False)
-    categoria = schema.auto_field(required=True)
-    
-    @schema.validates('email')
-    def email_valido(cls, email):
-        if not email.endswith('@ufpe.br'):
-            raise ValueError('Email precisa ser um dominio @ufpe.br')
-        return email
+    id:int = schema.auto_field(dump_only=True)
+    nome:str = schema.auto_field(required=True)
+    email:str = schema.auto_field(required=True)
+    data:date = schema.auto_field(dump_only=True)
+    categoria:str = schema.auto_field(required=True)

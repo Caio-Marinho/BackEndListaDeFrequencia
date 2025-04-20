@@ -18,14 +18,14 @@ class Configuration:
 
         # Create engine and ensure database exists
         self.engine = sqlalchemy.create_engine(f'mysql+mysqlconnector://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/')
-        logging.debug("Connecting to database server to ensure database exists.")
+        logging.debug("Conectando no servidor de banco de dados para garantir que o banco de dados exista.")
         with self.engine.connect() as connection:
             connection.execute(sqlalchemy.text(f"CREATE DATABASE IF NOT EXISTS {self.DB_NAME};"))
-            logging.debug(f"Database {self.DB_NAME} ensured to exist.")
+            logging.debug(f"Banco de dados {self.DB_NAME} descrito existe.")
 
         # Configuration settings
         self.SQLALCHEMY_DATABASE_URI = os.getenv('SQLALCHEMY_DATABASE_URI', f'mysql+mysqlconnector://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}')
-        logging.debug(f"SQLALCHEMY_DATABASE_URI set to: {self.SQLALCHEMY_DATABASE_URI}")
+        logging.debug(f"SQLALCHEMY_DATABASE_URI está inserido: {self.SQLALCHEMY_DATABASE_URI}")
         self.SQLALCHEMY_TRACK_MODIFICATIONS = 'True'.lower() in ['true', '1', 'yes']
         self.SQLALCHEMY_ECHO = 'True'.lower() in ['true', '1', 'yes']
         self.SQLALCHEMY_ENCODING = 'UTF-8'
@@ -69,8 +69,9 @@ class Configuration:
         # Log configuration
         self.LOG_LEVEL = 'INFO'.upper()
         self.LOG_FILE_PATH = 'app.log'
+        self.LOG_FILE_NAME = 'app.log'
         self.LOG_PATH = 'app/log'
-        self.LOG_FILE_MODE = 'a'
+        self.LOG_FILE_MODE = 'a+'
         self.LOG_FORMAT = '%(asctime)s - %(levelname)s - %(message)s'
         self.LOG_DATE_FORMAT = '%Y-%m-%d %H:%M:%S %z'
         self.LOG_ENCODING = 'UTF-8'  # Added UTF-8 encoding for logs

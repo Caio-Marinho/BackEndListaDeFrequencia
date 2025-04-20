@@ -1,13 +1,20 @@
 from flask import jsonify,send_file, request
-from app.models.models import db,Discentes
+from app.models import db, Discentes
+from app.schema.schema import DiscenteSchema
+from app.service.Discentes import AdiconarDiscentes
 from . import routes
+
 
 @routes.route('/', methods=['GET','POST'])
 def index():
     if request.method == 'POST':
         dados = request.get_json()
-        discentes = Discentes(dados['nome'],dados['email'],dados['horas'],dados['dias'],dados['categoria'])
-        db.session.add(discentes)
-        db.session.commit()
+        discente = AdiconarDiscentes(dados)
+        discente.validate()
+        response = discente.salvar()
+        return jsonify({'message': response}), 201
     
-    return jsonify({'message': dados}), 200
+    if request.method == 'GET':
+        discentes = Discentes.query.all()
+        schema = DiscenteSchema(many=True)
+        return jsonify(schema.dump(discentes)), 200
