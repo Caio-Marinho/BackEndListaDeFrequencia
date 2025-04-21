@@ -1,9 +1,10 @@
-from . import ValidatesTypes
+from .ValidatesTypes import TipagemEstaticaFunction
+from unidecode import unidecode
 
-@ValidatesTypes.TipagemEstaticaFunction
-def padronizarNome(texto: str) -> str:
-    return texto.strip().title()
+@TipagemEstaticaFunction
+def padronizarNome(nome: str) -> str:
+    return unidecode(nome.strip().title()) 
 
-@ValidatesTypes.TipagemEstaticaFunction
+@TipagemEstaticaFunction
 def padronizarEmail(email: str) -> str:
     return email.capitalize()

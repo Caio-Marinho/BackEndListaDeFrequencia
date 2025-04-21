@@ -6,15 +6,11 @@ from app.models import db
 from app.schema import schema
 from app.configuration import Configuration
 from app.configuration.configurationEnviroment import gerar_env_automatico
-from app.functions import log
+from app.functions.log import configure_app_logging
 from .routes.routes import routes
 from dotenv import load_dotenv
 
 def criar_app():
-    
-    log.logging.getLogger("app")
-    
-    log.monitor_eventos()
     
     # Carrega as variáveis de ambiente do arquivo .env
     load_dotenv()
@@ -26,6 +22,10 @@ def criar_app():
     
     # Cria a aplicação Flask
     app = Flask(__name__)
+    
+    # Configura o log
+    configure_app_logging(app)
+    
     
     # Carrega as configurações da classe Configuration no app.config
     app.config.from_object(config)

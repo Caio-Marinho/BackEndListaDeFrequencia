@@ -1,4 +1,4 @@
-from datetime import date
+from datetime import date,time
 from . import schema
 from app.models import Discentes, db
 
@@ -12,4 +12,5 @@ class DiscenteSchema(schema.SQLAlchemyAutoSchema):
     nome:str = schema.auto_field(required=True)
     email:str = schema.auto_field(required=True)
     data:date = schema.auto_field(dump_only=True)
+    hora:time = schema.auto_field(dump_only=True)
     categoria:str = schema.auto_field(required=True)

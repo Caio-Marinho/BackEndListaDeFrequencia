@@ -1,6 +1,6 @@
-from . import ValidatesTypes
+from .ValidatesTypes import TipagemEstaticaClasse
 
-@ValidatesTypes.TipagemEstaticaClasse
+@TipagemEstaticaClasse
 class ValidarCategoria:
     def __init__(self, categoria: str):
         self.__categoria = categoria
