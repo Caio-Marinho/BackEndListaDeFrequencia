@@ -4,7 +4,6 @@ from app.models import db
 from app.util.Padronizar import padronizarEmail, padronizarNome
 from .ValidatesTypes import TipagemEstaticaClasse, TipagemEstaticaFunction  # Tipagem estática personalizada
 from .ValidatesData import ValidatesData  # Serviço de validação de dados
-from .ValidatesData import ValidationError
 import json
 
 http = HttpstatusCode()
@@ -54,7 +53,7 @@ class AdicionarDiscentes:
             db.session.commit()
             # Retorna uma resposta de sucesso
             response: Response = jsonify({"Success": discente.to_json()})
-            response.status_code = http.OK.statusCode
+            response.status_code = http.CREATED.statusCode
             return response
         except Exception as e:
             # Realiza rollback em caso de erro

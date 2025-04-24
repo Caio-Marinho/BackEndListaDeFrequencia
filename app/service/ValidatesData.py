@@ -3,12 +3,6 @@ from .ValidatesTypes import TipagemEstaticaClasse
 import re
 import json
 
-@TipagemEstaticaClasse
-class ValidationError(Exception):
-    def __init__(self, errors: dict):
-        self.errors = errors
-        super().__init__("Erro de validação nos dados.")
-
 
 @TipagemEstaticaClasse
 class ValidatesData:
