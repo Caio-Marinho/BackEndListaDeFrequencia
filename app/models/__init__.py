@@ -1,5 +1,5 @@
-from flask_sqlalchemy import SQLAlchemy
+from flask_sqlalchemy import SQLAlchemy  # Biblioteca para interação com o banco de dados
 
 db = SQLAlchemy() # Initializa SQLAlchemy
 
-from .models import Discentes
+__all__ = ['db']

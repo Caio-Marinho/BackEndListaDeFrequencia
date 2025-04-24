@@ -83,4 +83,32 @@ class Configuration:
         # Monitoring directory
         self.MONITORING_DIRECTORY = 'app/logs'
         self.MONITORING_FILE = 'application.log'
-    
+
+        # Swagger configuration
+        self.SWAGGER_TITLE = 'API Documentation'
+        self.SWAGGER_DESCRIPTION = 'API para gerenciamento de frequencia de alunos.'
+        self.SWAGGER_VERSION = '1.0.0'
+        
+        # JWT configuration
+        self.JWT_SECRET_KEY = os.urandom(24).hex()
+        self.JWT_ACCESS_TOKEN_EXPIRES = 3600
+        self.JWT_REFRESH_TOKEN_EXPIRES = 86400
+
+        # Redis configuration
+        self.REDIS_HOST = 'localhost'
+        self.REDIS_PORT = 6379  
+        self.REDIS_DB = 0
+
+        # Celery configuration
+        self.CELERY_BROKER_URL = 'redis://localhost:6379/0'
+        self.CELERY_RESULT_BACKEND = 'redis://localhost:6379/0'
+        self.CELERY_ACCEPT_CONTENT = ['application/json']
+        self.CELERY_TASK_SERIALIZER = 'json'
+        self.CELERY_RESULT_SERIALIZER = 'json'
+        self.CELERY_TIMEZONE = 'America/Recife'
+        self.CELERY_ENABLE_UTC = True
+
+        # Sentry configuration
+        self.SENTRY_DSN = 'https://example.sentry.io/12345'
+        self.SENTRY_ENVIRONMENT = 'development'
+        

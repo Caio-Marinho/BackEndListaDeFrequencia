@@ -1,7 +1,7 @@
+from app.globals import  datetime, date, time, pytz,os
 from . import db
-from datetime import datetime, date, time
-import pytz
-import os
+
+
 
 class Discentes(db.Model):
     """

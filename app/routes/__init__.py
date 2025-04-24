@@ -1,3 +1,3 @@
-from flask import Blueprint
+from .routes import routes
 
-routes = Blueprint('routes', __name__)
+__all__ = ['routes']

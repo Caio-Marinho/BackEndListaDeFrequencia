@@ -1,4 +1,4 @@
-from .ValidatesTypes import TipagemEstaticaFunction
+from app.service.ValidatesTypes import TipagemEstaticaFunction
 from unidecode import unidecode
 
 @TipagemEstaticaFunction

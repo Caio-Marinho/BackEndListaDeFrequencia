@@ -1,5 +1,5 @@
 from app.controller.Controller import Controller
-from flask import request, jsonify
+from app.globals import jsonify, request
 
 def index_view():
     """

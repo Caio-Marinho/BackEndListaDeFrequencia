@@ -1,10 +1,10 @@
-from flask import jsonify, Response
-from app.models.models import Discentes
+import json
+from app.globals import Response, jsonify,padronizarEmail,padronizarNome,datetime,HttpstatusCode
 from app.schema.schema import DiscenteSchema
 from app.service.Discentes import AdicionarDiscentes
-from app.service.Padronizar import padronizarEmail, padronizarNome
-from datetime import datetime
+from app.models.models import Discentes
 
+http = HttpstatusCode()
 class Controller:
     """
     Classe Controladora para gerenciar operações relacionadas aos 'Discentes'.
@@ -50,10 +50,10 @@ class Controller:
             response: Response = discente.salvar()
             return response
         except Exception as e:
-            # Retorna uma resposta de erro em caso de exceção
-            response: Response = jsonify({'message': str(e)})
-            response.status_code = 400
-            return response
+              # Retorna uma resposta de erro em caso de exceção
+              response: Response = jsonify({'message': json.loads(str(e))})
+              response.status_code = http.BadRequest.statusCode
+              return response
 
     def ListarUsuarios(self) -> Response:
         """
@@ -67,12 +67,12 @@ class Controller:
             # Serializa os dados usando o esquema DiscenteSchema
             schema: DiscenteSchema = DiscenteSchema(many=True)
             response: Response = jsonify(schema.dump(discentes))
-            response.status_code = 200
+            response.status_code = http.OK.statusCode
             return response
         except Exception as e:
             # Retorna uma resposta de erro em caso de exceção
-            response: Response = jsonify({'message': str(e)})
-            response.status_code = 400
+            response: Response = jsonify({'message': json.loads(str(e))})
+            response.status_code = http.BadRequest.statusCode
             return response
     
     def BuscarUsuarioID(self, id: int) -> Response:
@@ -98,7 +98,7 @@ class Controller:
                 return response
         except Exception as e:
             # Retorna uma resposta de erro em caso de exceção
-            response: Response = jsonify({'message': str(e)})
+            response: Response = jsonify({'message': json.loads(str(e))})
             response.status_code = 400
             return response
     
@@ -125,7 +125,7 @@ class Controller:
                 return response
         except Exception as e:
             # Retorna uma resposta de erro em caso de exceção
-            response: Response = jsonify({'message': str(e)})
+            response: Response = jsonify({'message': json.loads(str(e))})
             response.status_code = 400
             return response
         
@@ -152,7 +152,7 @@ class Controller:
                 return response
         except Exception as e:
             # Retorna uma resposta de erro em caso de exceção
-            response: Response = jsonify({'message': str(e)})
+            response: Response = jsonify({'message': json.loads(str(e))})
             response.status_code = 400
             return response
     
@@ -173,7 +173,7 @@ class Controller:
             return response
         except Exception as e:
             # Retorna uma resposta de erro em caso de exceção
-            response: Response = jsonify({'message': str(e)})
+            response: Response = jsonify({'message': json.loads(str(e))})
             response.status_code = 400
             return response
         
@@ -193,6 +193,6 @@ class Controller:
             return True if quantidade else False
         except Exception as e:
             # Retorna uma resposta de erro em caso de exceção
-            response: Response = jsonify({'message': str(e)})
+            response: Response = jsonify({'message': json.loads(str(e))})
             response.status_code = 400
             return response

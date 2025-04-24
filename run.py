@@ -1,8 +1,8 @@
 from app import criar_app
-from app.configuration.configuration import Configuration
+from app.globals import Configuration
 
 
-app = criar_app()
+app = criar_app.app
 config = Configuration()
 
 if __name__ == '__main__':

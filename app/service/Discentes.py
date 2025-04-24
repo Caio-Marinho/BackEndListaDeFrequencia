@@ -1,9 +1,13 @@
-from flask import Response, jsonify
-from .ValidatesData import ValidatesData
-from .Padronizar import padronizarNome, padronizarEmail
-from .ValidatesTypes import TipagemEstaticaClasse
-from app.models import Discentes, db
+from app.globals import  HttpstatusCode,Response,jsonify
+from app.models.models import Discentes
+from app.models import db
+from app.util.Padronizar import padronizarEmail, padronizarNome
+from .ValidatesTypes import TipagemEstaticaClasse, TipagemEstaticaFunction  # Tipagem estática personalizada
+from .ValidatesData import ValidatesData  # Serviço de validação de dados
+from .ValidatesData import ValidationError
+import json
 
+http = HttpstatusCode()
 @TipagemEstaticaClasse
 class AdicionarDiscentes:
     """
@@ -50,14 +54,14 @@ class AdicionarDiscentes:
             db.session.commit()
             # Retorna uma resposta de sucesso
             response: Response = jsonify({"Success": discente.to_json()})
-            response.status_code = 201
+            response.status_code = http.OK.statusCode
             return response
         except Exception as e:
             # Realiza rollback em caso de erro
             db.session.rollback()
             # Retorna uma resposta de falha
-            response: Response = jsonify({"Fail": str(e)})
-            response.status_code = 400
+            response: Response = jsonify({"Fail": json.loads(str(e))})
+            response.status_code = http.BadRequest.statusCode
             return response
         finally:
             # Remove a sessão para garantir que ela seja limpa corretamente

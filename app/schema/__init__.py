@@ -1,3 +1,5 @@
-from flask_marshmallow import Marshmallow
+from flask_marshmallow import Marshmallow  # Biblioteca para serializar objetos com Marshmallow
 
-schema = Marshmallow()
+ma = Marshmallow()
+
+__all__ = ['ma']
