@@ -15,7 +15,7 @@ def validar_email(email: str) -> bool:
     :return: Um booleano indicando se o email é válido (True) ou não (False).
     """
     # Expressão regular para validar o formato do email
-    padrao: str = r'^(?![._%+-@/\])[a-zA-Z0-9._%+-]+@ufpe\.br$'
+    padrao: str = r'^(?![._%+@/\\-])[a-zA-Z0-9._%+-]+@ufpe\.br$'
     if re.match(padrao, email):
         return True
     return False

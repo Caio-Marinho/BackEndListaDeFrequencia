@@ -7,4 +7,4 @@ def padronizarNome(nome: str) -> str:
 
 @TipagemEstaticaFunction
 def padronizarEmail(email: str) -> str:
-    return email.capitalize()
+    return unidecode(email.strip().capitalize())

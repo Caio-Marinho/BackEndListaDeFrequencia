@@ -40,6 +40,7 @@ class AdicionarDiscentes:
 
         :return: Um objeto Response do Flask indicando o sucesso ou falha da operação.
         """
+        
         try:
             # Cria uma instância do modelo Discentes com os dados fornecidos
             discente: Discentes = Discentes(**self.__discente)
@@ -47,13 +48,15 @@ class AdicionarDiscentes:
             discente.setnome(padronizarNome(discente.getnome()))
             discente.setemail(padronizarEmail(discente.getemail()))
             # Valida os dados do discente
+            self.__discente['nome'] = discente.getnome()
+            self.__discente['email'] = discente.getemail()
             self.validate()
             # Adiciona e comita o discente no banco de dados
             db.session.add(discente)
             db.session.commit()
             # Retorna uma resposta de sucesso
             response: Response = jsonify({"Success": discente.to_json()})
-            response.status_code = http.CREATED.statusCode
+            response.status_code = http.Created.statusCode
             return response
         except Exception as e:
             # Realiza rollback em caso de erro

@@ -1,4 +1,6 @@
-from .ValidatesNome import validar_Nome
+from .ValidatesNome import ValidarFomato, validar_Nome
+from .ValidadesEmail import validar_email
+from .ValidatesCategoria import ValidarCategoria
 from .ValidatesTypes import TipagemEstaticaClasse
 import re
 import json
@@ -41,7 +43,7 @@ class ValidatesData:
         """
         if not self.__data.get("email"):
             self.__add_error("email", "O email é Obrigatório")
-        elif not re.match(r'^(?![._%+@/\\-])[a-zA-Z0-9._%+-]+@ufpe\.br$', self.__data['email']):
+        elif not validar_email(self.__data['email']):
             error_message = f"O email '{self.__data['email']}' é inválido."
             self.__add_error("email", error_message)
 
@@ -51,11 +53,11 @@ class ValidatesData:
         """
         if not self.__data.get("nome"):
             self.__add_error("nome", "O nome é Obrigatório")
-        elif not re.match(r'^[A-Za-z\s]+$', self.__data['nome']):
-            error_message = f"O nome '{self.__data['nome']}' é inválido."
+        elif not ValidarFomato(self.__data['nome']):
+            error_message = f"O Formato do nome '{self.__data['nome']}' é inválido."
             self.__add_error("nome", error_message)
         elif not validar_Nome(self.__data['nome']):
-            error_message = f"O Tamanho do nome '{self.__data['nome']}' é inválido, deve ter no mínimo 4 caracteres."
+            error_message = f"O Tamanho do nome '{self.__data['nome']}' é inválido, deve ter no mínimo 3 caracteres."
             self.__add_error("nome", error_message)
 
     def validate_categoria(self) -> None:
@@ -65,9 +67,9 @@ class ValidatesData:
         if not self.__data.get("categoria"):
             self.__add_error("categoria", "A categoria é Obrigatória")
         else:
-            tipo = ['calouro', 'calouros', 'Calouro', 'Calouros', 'voluntario', 'voluntarios', 'Voluntario', 'Voluntarios']
-            if self.__data['categoria'] not in tipo:
-                error_message = f"A categoria '{self.__data['categoria']}' é inválida."
+            validador = ValidarCategoria(self.__data['categoria'])
+            if not validador.valido:
+                error_message = f"A categoria '{self.__data['categoria']}' é inválida pois não pertence aos tipos aceitos seja calouro ou voluntario."
                 self.__add_error("categoria", error_message)
 
     def __add_error(self, field: str, message: str) -> None:
